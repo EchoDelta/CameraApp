@@ -1,20 +1,24 @@
 ﻿@model dynamic
 <!DOCTYPE html>
 <html>
-<head>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script>
-		var pictureSnapper = document.querySelector("#pictureSnapper");
-		pictureSnapper.onchange = function(event) {
-		    var files = event.target.files;
-		    var file;
-		    if (files && files.length > 0) {
-		        file = files[0];
-		    }
-		};
-	</script>
-</head>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>
+            $(function() {
+                $("#pictureSnapper").on('change', function (event) {
+                    console.log(event);
+                    if (event.target.files.length == 1 && event.target.files[0].type.indexOf("image/") == 0) {
+                        $("#image").attr("src", URL.createObjectURL(event.target.files[0]));
+                    }
+                });
+            });
+        </script>
+    </head>
 <body>
-	<input type="file" id="pictureSnapper" accept="image/*" />
+    <input type="file" id="pictureSnapper" accept="image/*" />
+    <div>
+        <img id="image" style="width: 100%"/>
+    </div>
 </body>
 </html>
